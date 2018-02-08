@@ -91,9 +91,14 @@ void Graph::topsort() {
 			break;
 		}
 	}
+	int dummy = q.front();
 	while (q.size() != 0) {
 		int v = q.front();
 		q.pop();
+		//hässliche Lösung, aber ohne das kann man dem Programm beim Arbeiten zusehen
+		if (v == dummy) {
+			system("cls");
+		}
 		cout << nodes[v].getnumber() << " " << nodes[v].getname() << " " << nodes[v].getduration() << endl;
 		nodes[v].setvisited(true);
 		for (int i = 0; i < nodes.size(); i++) {
