@@ -19,7 +19,6 @@ public:
 	void bearbeiten(int a);
 	void choosegraph(int a);
 	void newgraph();
-	void topsort(int a);
 	void addknoten(int a);
 	void addkante(int a);
 	void deletekante(int a);

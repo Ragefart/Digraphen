@@ -11,6 +11,8 @@ Menu::~Menu()
 {
 }
 
+
+//HAUPTMENUE des ausgewählten Graphens
 void Menu::main(int a) {
 	int c = -1;
 
@@ -98,6 +100,8 @@ void Menu::choosegraph(int a) {
 	}
 }
 
+
+//Erstellt einen neuen Graphen und setzt diesen auf aktiv
 void Menu::newgraph() {
 	system("cls");
 	string newname;
@@ -110,10 +114,6 @@ void Menu::newgraph() {
 	main(graphs.size() - 1);
 }
 
-void Menu::topsort(int a) {
-
-	main(a);
-}
 
 void Menu::bearbeiten(int a) {
 	system("cls");
@@ -212,6 +212,9 @@ void Menu::deleteknoten(int a) {
 	bearbeiten(a);
 }
 
+
+//Erstellt eine Kopie des aktuellen Graphen und nimmt ihn in die Liste auf
+//geht in das Hauptmenue des neuen Graphen
 void Menu::copy(int a) {
 	addgraph();
 	graphs[graphs.size() - 1] = graphs[a];

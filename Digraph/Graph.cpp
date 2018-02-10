@@ -11,13 +11,17 @@ Graph::~Graph()
 {
 }
 
-
+//Fügt eine neue gerichtete Kante in den Graphen ein
 void Graph::InsertArc(int a, int b) {
 	arcs[a][b] = true;
 	nodes[a].increaseOUT();
 	nodes[b].increaseIN();
 }
 
+
+//Fügt einen neuen Knoten in den Graphen ein
+//erweitert die Kantenmatrix und setzt alle Verbindungen
+//die diesen Knoten betreffen auf false
 void Graph::InsertNode(int a, string b, int c) {
 	Node n;
 	n.setnumber(a);
@@ -34,13 +38,15 @@ void Graph::InsertNode(int a, string b, int c) {
 	}
 }
 
+
+//Gibt di Knoten des Graphen aus
 void Graph::print() {
 	cout << "Der Graph besteht aus folgenden Knoten: " << endl;
 	for (int i = 0; i < nodes.size(); i++) {
 		cout << nodes[i].getnumber() << " " << nodes[i].getname() << " " << nodes[i].getduration() << endl;
 	}
 }
-
+//löscht den Graphen
 void Graph::destroy() {
 	nodes.clear();
 	if (arcs.size() > 0) {
@@ -83,11 +89,17 @@ bool Graph::ready(int a) {
 	return true;
 }
 
+
+//Topologische sortierung des Graphen
+//Durchläuft den Graphen von einem Startknoten und geht von 
+//dort aus den ganzen Knoten 
 void Graph::topsort() {
 	queue<int> q;
+	int duration = 0;
 	for (int i = 0; i < nodes.size(); i++) {
 		if (nodes[i].getindegree() == 0) {
 			q.push(i);
+			duration = duration + nodes[i].getduration();
 			break;
 		}
 	}
@@ -98,9 +110,11 @@ void Graph::topsort() {
 		//hässliche Lösung, aber ohne das kann man dem Programm beim Arbeiten zusehen
 		if (v == dummy) {
 			system("cls");
+			duration = 0;
 		}
 		cout << nodes[v].getnumber() << " " << nodes[v].getname() << " " << nodes[v].getduration() << endl;
 		nodes[v].setvisited(true);
+		duration = duration + nodes[v].getduration();
 		for (int i = 0; i < nodes.size(); i++) {
 			if (ready(i)) {
 				q.push(i);
@@ -110,8 +124,8 @@ void Graph::topsort() {
 			break;
 		}
 	}
-
-
+	cout << endl << endl;
+	cout << "Dauer des Vorgangs: " << duration << endl;
 	//ENDE
 	for (int i = 0; i < nodes.size(); i++) {
 		nodes[i].setvisited(false);
