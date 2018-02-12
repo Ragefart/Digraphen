@@ -39,7 +39,7 @@ void Graph::InsertNode(int a, string b, int c) {
 }
 
 
-//Gibt di Knoten des Graphen aus
+//Gibt die Knoten des Graphen aus
 void Graph::print() {
 	cout << "Der Graph besteht aus folgenden Knoten: " << endl;
 	for (int i = 0; i < nodes.size(); i++) {
@@ -57,17 +57,25 @@ void Graph::destroy() {
 	arcs.clear();
 }
 
+
+//Löscht eine Kante und aktualisiert die Ein und Ausgangsgrade
 void Graph::deleteArc(int a, int b) {
 	arcs[a][b] = false;
 	nodes[a].decreaseOUT();
 	nodes[b].decreaseIN();
 }
 
+
+//Löscht einen Knoten und aktualisiert alle
+//Ein und Ausgangsgrade von anderen Knoten
 void Graph::deleteNode(int a) {
 	nodes.erase(nodes.begin() + a);
 	for (int i = 0; i < arcs.size(); i++) {
 		if (arcs[i][a]) {
 			nodes[i].decreaseOUT();
+		}
+		if (arcs[a][i]) {
+			nodes[i].decreaseIN();
 		}
 	}
 	for (int i = 0; i < arcs.size(); i++) {
